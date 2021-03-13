@@ -4,6 +4,7 @@
 #include<fstream>
 #include "Map.h"
 #include "Macro.hpp"
+#include "Items.h"
 
 Map::Map(sf::Vector2f pos,sf::Vector2f size)
 {
@@ -58,22 +59,14 @@ void Map::loadFromFile(std::string filepath)
 		if (root[i]["type"])
 		{
 			std::string type = root[i]["type"].asString();
+			Items itemsUpdate = Items();
 
-			/* ITEM TEST */
-			if (type == "light")
+			for (size_t i = 0; i < itemsUpdate.items.size(); i++)
 			{
-				item.setUpdate([](Item* item, float time)
+				if (itemsUpdate.items[i].first == type)
 				{
-						item->TotalTime += time;
-						
-						if (item->TotalTime >= 300.0f)
-						{
-							sf::Texture texture;
-							texture.loadFromFile("light.png");
-							item->setDraw(texture);
-							item->TotalTime = 0.0f;
-						}
-				});
+					item.setUpdate(itemsUpdate.items[i].second);
+				}
 			}
 		}
 
@@ -131,8 +124,23 @@ void Map::Update(float time)
 	}
 }
 
+sf::Vector2f Map::getSize()
+{
+	return this->size;
+}
+
 void Map::Draw(sf::RenderWindow& window)
 {
+	/*DRAW CAMERA*/
+	sf::RectangleShape rect;
+	rect.setPosition(this->camera);
+	rect.setSize(this->size);
+	rect.setFillColor(sf::Color::Black);
+	rect.setOutlineColor(sf::Color::Color(255, 0, 0));
+	rect.setOutlineThickness(2.0f);
+	window.draw(rect);
+	/*DRAW CAMERA*/
+
 	for (size_t i = 0; i < this->colisionItems.size(); i++)
 	{
 		if (this->isInView(this->colisionItems[i]))
@@ -148,6 +156,22 @@ void Map::Draw(sf::RenderWindow& window)
 			this->items[i].Draw(window);
 		}
 	}
+}
+
+void Map::Resize(sf::Vector2f size)
+{
+	this->size = size;
+}
+
+void Map::MoveCamera(sf::Vector2f pos,sf::Vector2f item)
+{
+	this->camera.x = pos.x - ((this->size.x + item.x) / 2);
+	this->camera.y = pos.y - ((this->size.y + item.y) / 2);
+}
+
+void Map::MoveCamera(sf::Vector2f pos)
+{
+	this->camera = pos;
 }
 
 bool Map::isInView(Item& item)

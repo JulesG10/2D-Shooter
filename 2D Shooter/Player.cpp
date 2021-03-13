@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Macro.hpp"
 #include "Bullet.h"
+#include "Map.h"
 
 Player::Player(sf::Vector2f pos)
 {
@@ -11,7 +12,7 @@ Player::Player(sf::Vector2f pos)
 }
 
 
-void Player::Update(float time)
+void Player::Update(float time, Map& map)
 {
 	float move = this->speed * time;
 
@@ -38,6 +39,11 @@ void Player::Update(float time)
 
 	if (this->isAlive)
 	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift))
+		{
+			move = 100.0f * time;
+		}
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
 			if (this->ToogleShootDir)
@@ -110,6 +116,9 @@ void Player::Update(float time)
 		{
 			this->ToogleShootDir = true;
 		}
+
+		
+		map.MoveCamera(this->pos, this->size);
 	}
 	else 
 	{
@@ -140,7 +149,7 @@ void Player::Update(float time)
 
 void Player::Draw(sf::RenderWindow& window)
 {
-	sf::RectangleShape rect(sf::Vector2f(34.0f, 34.0f));
+	sf::RectangleShape rect(this->size);
 	rect.setOrigin(sf::Vector2f(16.0f, 16.0f));
 	rect.setPosition(this->pos);
 

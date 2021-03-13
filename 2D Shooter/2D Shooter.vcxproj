@@ -144,6 +144,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Items.cpp" />
     <ClCompile Include="Macro.hpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Items.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

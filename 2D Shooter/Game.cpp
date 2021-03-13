@@ -43,11 +43,13 @@ bool Game::Run()
                 view.setSize(event.size.width, event.size.height);
                 view.setCenter(event.size.width / 2, event.size.height / 2);
                 window.setView(view);
+
+                map.Resize(sf::Vector2f(event.size.width, event.size.height));
             }
         }
         
         map.Update(deltatime);
-        player.Update(deltatime);
+        player.Update(deltatime,map);
 
         // sf::Color::Color(5, 110, 35)
         window.clear();
