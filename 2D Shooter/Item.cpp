@@ -50,19 +50,21 @@ bool Item::hasUpdate()
 
 void Item::Draw(sf::RenderWindow& window)
 {
-	sf::RectangleShape rect(this->size);
-	rect.setPosition(this->pos);
-
-	rect.setFillColor(sf::Color::Color(255,0,0));
-	window.draw(rect);
-
-
 	if (this->isImageFirst)
 	{
-		
+		sf::Sprite sprite;
+		sprite.setTexture(this->image);
+		sprite.setPosition(this->pos);
+		sprite.setTextureRect(sf::IntRect(0,0,this->size.x,this->size.y));
+		window.draw(sprite);
 	}
-	else {
-		
+	else 
+	{
+		sf::RectangleShape rect(this->size);
+		rect.setPosition(this->pos);
+
+		rect.setFillColor(sf::Color::Color(this->color));
+		window.draw(rect);
 	}
 }
 
