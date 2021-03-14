@@ -117,8 +117,6 @@ void Player::Update(float time, Map& map)
 			this->ToogleShootDir = true;
 		}
 
-		
-		map.MoveCamera(this->pos, this->size);
 	}
 	else 
 	{
