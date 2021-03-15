@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Bullet.h"
+#include "Map.h"
 
 
 Bullet::Bullet(sf::Vector2f pos,bool x,bool l)
@@ -20,8 +21,19 @@ void Bullet::setSpeed(float speed)
 	this->speed = speed;
 }
 
-void Bullet::Update(float time)
+void Bullet::Update(float time,Map& map)
 {
+	for (size_t i = 0; i < map.colisionItems.size(); i++)
+	{
+		if (this->pos.x >= map.colisionItems[0].getPos().x && this->pos.x <= (map.colisionItems[0].getPos().x + map.colisionItems[0].getSize().x))
+		{
+			if (this->pos.y >= map.colisionItems[0].getPos().y && this->pos.y <= (map.colisionItems[0].getPos().y + map.colisionItems[0].getSize().y))
+			{
+				this->Remove();
+			}
+		}
+	}
+
 	this->TotalTime += time;
 	float move = this->speed * time;
 	

@@ -32,7 +32,7 @@ void Player::Update(float time, Map& map)
 			}
 			else
 			{
-				this->bullets[i].Update(time);
+				this->bullets[i].Update(time,map);
 			}
 		}
 	}
@@ -52,7 +52,7 @@ void Player::Update(float time, Map& map)
 				this->shootX = true;
 				this->shootL = false;
 			}
-			else 
+			else if(this->RequestMove(map,move,true,false))
 			{
 				this->pos.x -= move;
 			}
@@ -65,7 +65,7 @@ void Player::Update(float time, Map& map)
 				this->shootX = true;
 				this->shootL = true;
 			}
-			else
+			else if (this->RequestMove(map, move, true,true))
 			{
 				this->pos.x += move;
 			}
@@ -79,7 +79,7 @@ void Player::Update(float time, Map& map)
 				this->shootX = false;
 				this->shootL = false;
 			}
-			else
+			else if (this->RequestMove(map, move, false,false))
 			{
 				this->pos.y -= move;
 			}
@@ -92,7 +92,7 @@ void Player::Update(float time, Map& map)
 				this->shootX = false;
 				this->shootL = true;
 			}
-			else 
+			else if (this->RequestMove(map, move, false,true))
 			{
 				this->pos.y += move;
 			}
@@ -117,6 +117,23 @@ void Player::Update(float time, Map& map)
 			this->ToogleShootDir = true;
 		}
 
+		if (this->pos.x < 0.0f)
+		{
+			this->pos.x += move;
+		}
+		else if (this->pos.x > map.getSize().x)
+		{
+			this->pos.x -= move;
+		}
+
+		if (this->pos.y > map.getSize().y)
+		{
+			this->pos.y -= move;
+		}
+		else if (this->pos.y < 0.0f)
+		{
+			this->pos.y += move;
+		}
 	}
 	else 
 	{
@@ -143,6 +160,45 @@ void Player::Update(float time, Map& map)
 			}
 		}
 	}
+}
+
+bool Player::RequestMove(Map& map, float move, bool x,bool add)
+{
+	sf::Vector2f futurePos = this->pos;
+
+	if (x)
+	{
+		if (add)
+		{
+			futurePos.x = this->pos.x + move;
+		}
+		else {
+			futurePos.x = this->pos.x - move;
+		}
+		
+	}
+	else {
+		if (add)
+		{
+			futurePos.y = this->pos.y + move;
+		}
+		else {
+			futurePos.y = this->pos.y - move;
+		}
+	}
+
+	for (size_t i = 0; i < map.colisionItems.size(); i++)
+	{
+		if (futurePos.x + this->size.x/2 >= map.colisionItems[0].getPos().x && futurePos.x -this->size.x / 2 <= (map.colisionItems[0].getPos().x + map.colisionItems[0].getSize().x))
+		{
+			if (futurePos.y + this->size.y/2 >= map.colisionItems[0].getPos().y && futurePos.y -this->size.y / 2 <= (map.colisionItems[0].getPos().y + map.colisionItems[0].getSize().y))
+			{
+				return false;
+			}
+		}
+	}
+	
+	return true;
 }
 
 void Player::Draw(sf::RenderWindow& window)

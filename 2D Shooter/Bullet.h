@@ -1,7 +1,7 @@
 #pragma once
 #include<iostream>
 #include<SFML/Graphics.hpp>
-
+#include "Map.h"
 
 class Bullet
 {
@@ -9,7 +9,7 @@ public:
 	Bullet(sf::Vector2f, bool, bool);
 	~Bullet();
 
-	void Update(float);
+	void Update(float,Map&);
 	void Draw(sf::RenderWindow&);
 
 	sf::Vector2f getPosition();

@@ -14,6 +14,7 @@ public:
 	void Update(float time,Map&);
 	void Draw(sf::RenderWindow&);
 private:
+	bool RequestMove(Map&, float,bool,bool);
 	sf::Vector2f pos;
 	
 	bool ToogleShootDir = false;

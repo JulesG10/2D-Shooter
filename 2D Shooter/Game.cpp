@@ -21,7 +21,7 @@ bool Game::Run()
     sf::Clock clock;
     float deltatime = 0;
     
-    Player player = Player(sf::Vector2f(100.0f,100.0f));
+    Player player = Player(sf::Vector2f(0.0f,0.0f));
     Map map = Map(sf::Vector2f(0.0f,0.0f),sf::Vector2f(600.0f,500.0f));
 
     map.loadFromFile("C:\\Users\\jules\\source\\repos\\2D Shooter\\Debug\\assets\\map.json");
