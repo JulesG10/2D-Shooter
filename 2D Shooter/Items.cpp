@@ -6,7 +6,16 @@
 
 void UpdateTree(Item* item,float time)
 {
-	item->setDraw(sf::Color::Color(rand()%255, rand() % 255, rand() % 255));
+	std::string path = item->assetDir + "\\assets\\tree.png";
+	sf::Texture tree;
+
+	if (tree.loadFromFile(path))
+	{
+		item->setDraw(tree);
+	}
+	else {
+		item->setDraw(sf::Color::Black);
+	}
 }
 
 

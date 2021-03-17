@@ -25,9 +25,9 @@ void Bullet::Update(float time,Map& map)
 {
 	for (size_t i = 0; i < map.colisionItems.size(); i++)
 	{
-		if (this->pos.x >= map.colisionItems[0].getPos().x && this->pos.x <= (map.colisionItems[0].getPos().x + map.colisionItems[0].getSize().x))
+		if (this->pos.x >= map.colisionItems[i].getPos().x && this->pos.x <= (map.colisionItems[i].getPos().x + map.colisionItems[i].getSize().x))
 		{
-			if (this->pos.y >= map.colisionItems[0].getPos().y && this->pos.y <= (map.colisionItems[0].getPos().y + map.colisionItems[0].getSize().y))
+			if (this->pos.y >= map.colisionItems[i].getPos().y && this->pos.y <= (map.colisionItems[i].getPos().y + map.colisionItems[i].getSize().y))
 			{
 				this->Remove();
 			}

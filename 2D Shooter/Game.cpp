@@ -22,7 +22,7 @@ bool Game::Run(std::string startLocation)
     float deltatime = 0;
     
     Player player = Player(sf::Vector2f(0.0f,0.0f), startLocation);
-    Map map = Map(sf::Vector2f(0.0f,0.0f),sf::Vector2f(600.0f,500.0f));
+    Map map = Map(sf::Vector2f(0.0f,0.0f),sf::Vector2f(600.0f,500.0f),startLocation);
 
     map.loadFromFile(startLocation + "assets\\map.json");
 

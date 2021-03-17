@@ -16,18 +16,19 @@ sf::Vector2f Item::getPos()
 
 void Item::setPos(sf::Vector2f pos)
 {
+	this->hasImage = false;
 	this->pos = pos;
 }
 
-void Item::setDraw(sf::Texture texture)
+void Item::setDraw(sf::Texture& texture)
 {
-	this->isImageFirst = true;
+	this->hasImage = true;
 	this->image = texture;
 }
 
 void Item::setDraw(sf::Color color)
 {
-	this->isImageFirst = false;
+	this->hasImage = false;
 	this->color = color;
 }
 
@@ -50,21 +51,17 @@ bool Item::hasUpdate()
 
 void Item::Draw(sf::RenderWindow& window)
 {
-	if (this->isImageFirst)
-	{
-		sf::Sprite sprite;
-		sprite.setTexture(this->image);
-		sprite.setPosition(this->pos);
-		sprite.setTextureRect(sf::IntRect(0,0,this->size.x,this->size.y));
-		window.draw(sprite);
-	}
-	else 
-	{
-		sf::RectangleShape rect(this->size);
-		rect.setPosition(this->pos);
+	sf::RectangleShape rect(this->size);
+	rect.setPosition(this->pos);
+	rect.setFillColor(sf::Color::Color(this->color));
+	window.draw(rect);
 
-		rect.setFillColor(sf::Color::Color(this->color));
-		window.draw(rect);
+	if (this->hasImage)
+	{		
+		sf::Sprite sprite(this->image);
+		sprite.setPosition(this->pos);
+
+		window.draw(sprite);
 	}
 }
 

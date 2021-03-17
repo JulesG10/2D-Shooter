@@ -195,9 +195,9 @@ bool Player::RequestMove(Map& map, float move, bool x,bool add)
 
 	for (size_t i = 0; i < map.colisionItems.size(); i++)
 	{
-		if (futurePos.x + this->size.x/2 >= map.colisionItems[0].getPos().x && futurePos.x -this->size.x / 2 <= (map.colisionItems[0].getPos().x + map.colisionItems[0].getSize().x))
+		if (futurePos.x + this->size.x/2 >= map.colisionItems[i].getPos().x && futurePos.x -this->size.x / 2 <= (map.colisionItems[i].getPos().x + map.colisionItems[i].getSize().x))
 		{
-			if (futurePos.y + this->size.y/2 >= map.colisionItems[0].getPos().y && futurePos.y -this->size.y / 2 <= (map.colisionItems[0].getPos().y + map.colisionItems[0].getSize().y))
+			if (futurePos.y + this->size.y/2 >= map.colisionItems[i].getPos().y && futurePos.y -this->size.y / 2 <= (map.colisionItems[i].getPos().y + map.colisionItems[i].getSize().y))
 			{
 				return false;
 			}

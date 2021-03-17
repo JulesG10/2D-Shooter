@@ -6,10 +6,11 @@
 #include "Macro.hpp"
 #include "Items.h"
 
-Map::Map(sf::Vector2f pos,sf::Vector2f size)
+Map::Map(sf::Vector2f pos,sf::Vector2f size,std::string assetDir)
 {
 	this->camera = pos;
 	this->size = size;
+	this->assetDir = assetDir;
 }
 
 void Map::loadFromFile(std::string filepath)
@@ -55,6 +56,7 @@ void Map::loadFromFile(std::string filepath)
 		}
 
 		Item item = Item(it_pos, it_size);
+		item.assetDir = this->assetDir;
 
 		if (root[i]["type"])
 		{
@@ -94,7 +96,7 @@ void Map::loadFromFile(std::string filepath)
 			item.setDraw(sf::Color::Color(0, 0, 0));
 		}
 
-		if (root[i]["collision"])
+		if (root[i]["collision"].asBool())
 		{
 			this->colisionItems.push_back(item);
 		}
@@ -131,15 +133,6 @@ sf::Vector2f Map::getSize()
 
 void Map::Draw(sf::RenderWindow& window)
 {
-	/*DRAW CAMERA*/
-	sf::RectangleShape rect;
-	rect.setPosition(this->camera);
-	rect.setSize(this->size);
-	rect.setFillColor(sf::Color::Black);
-	rect.setOutlineColor(sf::Color::Color(255, 0, 0));
-	rect.setOutlineThickness(2.0f);
-	window.draw(rect);
-	/*DRAW CAMERA*/
 
 	for (size_t i = 0; i < this->colisionItems.size(); i++)
 	{

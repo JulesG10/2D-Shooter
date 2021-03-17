@@ -6,7 +6,7 @@
 class Map
 {
 public:
-	Map(sf::Vector2f,sf::Vector2f);
+	Map(sf::Vector2f,sf::Vector2f,std::string assetDir);
 	~Map();
 
 	void loadFromFile(std::string);
@@ -24,6 +24,7 @@ public:
 	sf::Vector2f getSize();
 private:
 	bool isInView(Item&);
+	std::string assetDir;
 
 	sf::Vector2f size;
 	sf::Vector2f camera;
