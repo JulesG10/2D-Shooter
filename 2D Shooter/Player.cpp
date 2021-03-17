@@ -228,7 +228,7 @@ void Player::Draw(sf::RenderWindow& window)
 			this->bullets.emplace_back(Bullet(this->pos,this->shootX,this->shootL));
 		}
 
-		rect.setFillColor(sf::Color::Color(150, 150, 150));
+		rect.setFillColor(sf::Color::Black);
 
 		if (this->ToogleShootDir)
 		{
@@ -236,6 +236,22 @@ void Player::Draw(sf::RenderWindow& window)
 		}
 		
 		window.draw(rect);
+
+		sf::Texture player;
+
+		std::string path = this->assetDir + "\\assets\\player.png";
+
+		if (player.loadFromFile(path))
+		{
+			sf::Sprite sprite;
+			sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
+			sprite.setTexture(player);
+
+			sprite.setOrigin(sf::Vector2f(16.0f, 16.0f));
+			sprite.setPosition(this->pos);
+
+			window.draw(sprite);
+		}
 	}
 	else 
 	{
