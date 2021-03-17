@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Bullet.h"
 #include "Map.h"
+#include "WeaponsBar.h"
 
 class Player
 {
@@ -31,4 +32,5 @@ private:
 
 	bool canShoot = false;
 	std::vector<Bullet> bullets;
+	WeaponsBar bar;
 };

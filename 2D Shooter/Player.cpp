@@ -9,11 +9,13 @@ Player::Player(sf::Vector2f pos)
 {
 	this->pos = pos;
 	this->isAlive = true;
+	this->bar = WeaponsBar();
 }
 
 
 void Player::Update(float time, Map& map)
 {
+	this->bar.Update();
 	float move = this->speed * time;
 
 	this->BulletWait += time;
@@ -203,6 +205,8 @@ bool Player::RequestMove(Map& map, float move, bool x,bool add)
 
 void Player::Draw(sf::RenderWindow& window)
 {
+	this->bar.Draw(window);
+
 	sf::RectangleShape rect(this->size);
 	rect.setOrigin(sf::Vector2f(16.0f, 16.0f));
 	rect.setPosition(this->pos);
