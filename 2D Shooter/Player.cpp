@@ -107,7 +107,7 @@ void Player::Update(float time, Map& map)
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			if (this->BulletWait > time * 50.0f && !this->ToogleShootDir)
+			if (this->BulletWait > time * this->bar.getWeaponFireRate(this->bar.getSelectedWeapon()) && !this->ToogleShootDir)
 			{
 				this->canShoot = true;
 			}
