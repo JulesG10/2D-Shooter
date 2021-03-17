@@ -1,6 +1,5 @@
 #pragma once
 #include<iostream>
-#include <vector>
 #include<SFML/Graphics.hpp>
 
 typedef enum Weapons {
@@ -15,7 +14,7 @@ typedef enum Weapons {
 class WeaponsBar
 {
 public:
-	WeaponsBar();
+	WeaponsBar(std::string);
 	~WeaponsBar();
 
 	Weapons getSelectedWeapon();
@@ -24,8 +23,7 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow&);
 private:
+	std::string assetDir;
 	Weapons selected;
-
-	std::vector<sf::Vector2f> buttons;
 };
 

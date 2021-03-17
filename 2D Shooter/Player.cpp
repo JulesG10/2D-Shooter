@@ -5,17 +5,21 @@
 #include "Bullet.h"
 #include "Map.h"
 
-Player::Player(sf::Vector2f pos)
+Player::Player(sf::Vector2f pos,std::string assetDir)
 {
+	this->assetDir = assetDir;
 	this->pos = pos;
 	this->isAlive = true;
-	this->bar = WeaponsBar();
+	this->bar = WeaponsBar(this->assetDir);
 }
 
 
 void Player::Update(float time, Map& map)
 {
-	this->bar.Update();
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		this->bar.Update();
+	}
 	float move = this->speed * time;
 
 	this->BulletWait += time;
@@ -103,7 +107,7 @@ void Player::Update(float time, Map& map)
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			if (this->BulletWait > time * 300.0f && !this->ToogleShootDir)
+			if (this->BulletWait > time * 50.0f && !this->ToogleShootDir)
 			{
 				this->canShoot = true;
 			}
@@ -205,7 +209,6 @@ bool Player::RequestMove(Map& map, float move, bool x,bool add)
 
 void Player::Draw(sf::RenderWindow& window)
 {
-	this->bar.Draw(window);
 
 	sf::RectangleShape rect(this->size);
 	rect.setOrigin(sf::Vector2f(16.0f, 16.0f));
@@ -238,7 +241,7 @@ void Player::Draw(sf::RenderWindow& window)
 	{
 		sf::Texture explose;
 		
-		std::string path = "C:\\Users\\jules\\source\\repos\\2D Shooter\\Debug\\Explosion\\" + this->DeadFile;
+		std::string path = this->assetDir+"\\Explosion\\" + this->DeadFile;
 
 		if (explose.loadFromFile(path)) 
 		{
@@ -251,6 +254,8 @@ void Player::Draw(sf::RenderWindow& window)
 			window.draw(sprite);
 		}
 	}
+
+	this->bar.Draw(window);
 }
 
 Player::~Player()

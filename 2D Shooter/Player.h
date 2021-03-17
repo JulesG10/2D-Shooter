@@ -9,7 +9,7 @@
 class Player
 {
 public:
-	Player(sf::Vector2f);
+	Player(sf::Vector2f,std::string);
 	~Player();
 
 	void Update(float time,Map&);
@@ -17,7 +17,8 @@ public:
 private:
 	bool RequestMove(Map&, float,bool,bool);
 	sf::Vector2f pos;
-	
+	std::string assetDir;
+
 	bool ToogleShootDir = false;
 	bool shootL = true;
 	bool shootX = true;
@@ -32,5 +33,5 @@ private:
 
 	bool canShoot = false;
 	std::vector<Bullet> bullets;
-	WeaponsBar bar;
+	WeaponsBar bar = WeaponsBar("");
 };

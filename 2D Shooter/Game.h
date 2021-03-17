@@ -10,6 +10,6 @@ public:
 	Game();
 	~Game();
 	
-	bool Run();
+	bool Run(std::string);
 };
 

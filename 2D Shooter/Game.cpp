@@ -13,7 +13,7 @@ Game::Game()
     
 }
 
-bool Game::Run()
+bool Game::Run(std::string startLocation)
 {
     sf::RenderWindow window(sf::VideoMode(600, 500), "Game", sf::Style::Resize | sf::Style::Close);
     sf::View view = window.getDefaultView();
@@ -21,10 +21,10 @@ bool Game::Run()
     sf::Clock clock;
     float deltatime = 0;
     
-    Player player = Player(sf::Vector2f(0.0f,0.0f));
+    Player player = Player(sf::Vector2f(0.0f,0.0f), startLocation);
     Map map = Map(sf::Vector2f(0.0f,0.0f),sf::Vector2f(600.0f,500.0f));
 
-    map.loadFromFile("C:\\Users\\jules\\source\\repos\\2D Shooter\\Debug\\assets\\map.json");
+    map.loadFromFile(startLocation + "assets\\map.json");
 
     while (window.isOpen())
     {
@@ -40,11 +40,26 @@ bool Game::Run()
 
             if (event.type == sf::Event::Resized)
             {
-                view.setSize(event.size.width, event.size.height);
-                view.setCenter(event.size.width / 2, event.size.height / 2);
+                int h = event.size.height;
+                int w = event.size.width;
+
+                if (w < 600.0f)
+                {
+                    w = 600.0f;
+                }
+                if (h < 500.0f)
+                {
+                    h = 500.0f;
+                }
+
+                view.setSize(w, h);
+                window.setSize(sf::Vector2u(w, h));
+                
+                view.setCenter(w / 2, h / 2);
+                
                 window.setView(view);
 
-                map.Resize(sf::Vector2f(event.size.width, event.size.height));
+                map.Resize(sf::Vector2f(w,h));
             }
         }
         
